@@ -12,6 +12,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,5 +51,16 @@ public class MainActivity extends AppCompatActivity {
         /** cacheing data */
         File cachefile = new File(getCacheDir(), "myfile.dat");
 
+
+        // Initialize MessageDigest to use SHA-256
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            Log.e(TAG, "algorithm.not.found");
+        }
+
+        // Convert the string to a hash
+        byte[] sha256Hash = md.digest("Hello World".getBytes());
     }
 }
